@@ -17,5 +17,7 @@ o d o
 o o o
 
 The grid will be represented by numbers where a tile's number represents how
-likely the drop would be to choose that tile next. The lower the number, the
-lower the resistance, so the more likely the drop would choose that next.
+likely the drop would be to choose that tile next. The higher the number, the
+more likely the drop would choose that tile next.
+
+Idea: weight southwest, south, and southeast higher than west and east
