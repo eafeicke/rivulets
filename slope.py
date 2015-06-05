@@ -25,13 +25,18 @@ class Slope:
         selection_array = self.create_selection(neighbors)
         return random.choice(selection_array)
 
+    # create an array of coordinates to choose from based on the weight of the
+    # tile - example if you choose (0, 0):
+    # 0 1
+    # 2 3
+    # [(0, 1), (0, 1), (1, 1), (1, 1), (1, 1), (1, 0)]
     def create_selection(self, neighbors):
         selection_array = []
         for coord in neighbors.keys():
             for _ in range(neighbors[coord]):
                 selection_array.append(coord)
 
-
+    # get all of the potential next tiles
     def get_neighbors(self, side_to_side, altitude):
         west = (side_to_side - 1, altitude)
         south_west = (side_to_side - 1, altitude + 1)
