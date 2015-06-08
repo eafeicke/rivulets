@@ -8,20 +8,27 @@ class Slope:
         self.max_resistance= max_resistance
         self.grid = [[max_resistance]*grid_size] * grid_size
 
+    def __repr__(self):
+        res = ""
+        for line in self.grid:
+            res += str(line)
+            res += "\n"
+        return res
+
     def rain_drop(self):
-        side_to_side = self.pick_start()
         altitude = 0
+        side_to_side = self.pick_start()
         while altitude < self.grid_size - 1:
-            self.update_slope(side_to_side, altitude)
-            side_to_side = self.pick_next(side_to_side, altitude)
+            self.update_slope(altitude, side_to_side)
+            side_to_side = self.pick_next(altitude, side_to_side)
 
     # update the slope when a drop passes the tile
-    def update_slope(self, side_to_side, altitude):
-        self.grid[side_to_side][altitude] = self.grid[side_to_side][altitude] + 1
+    def update_slope(self, altitude, side_to_side):
+        self.grid[altitude][side_to_side] = self.grid[altitude][side_to_side] + 1
 
     # pick the next tile the drop will go to
-    def pick_next(self, side_to_side, altitude):
-        neighbors = self.get_neighbors(side_to_side, altitude)
+    def pick_next(self, altitude, side_to_side):
+        neighbors = self.get_neighbors(altitude, side_to_side)
         selection_array = self.create_selection(neighbors)
         return random.choice(selection_array)
 
@@ -110,6 +117,11 @@ if __name__ == "__main__":
             next_pick_test[next_thing] = 1
     print next_pick_test
     print "update_slope"
-    print "rain_drops"
+    test_slope2.update_slope(0, 0)
+    assert test_slope2.grid[0][0] == 2
+    print "rain_drop"
+    print test_slope
+    test_slope.rain_drop()
+    print test_slope
     print "---------------------"
     print "tests passed"
