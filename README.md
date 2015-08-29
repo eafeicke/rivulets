@@ -3,7 +3,7 @@
 This project is intended to simulate how droplets of water might wear down
 tracks into a dirt slope.
 
-I think Pygame could be useful for this.
+Pygame could be useful for this.
 
 Represent the slope as a grid with the top of the slope as the top of the
 screen.

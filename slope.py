@@ -6,7 +6,21 @@ class Slope:
     def __init__(self, grid_size, max_resistance):
         self.grid_size = grid_size
         self.max_resistance= max_resistance
-        self.grid = [[max_resistance]*grid_size] * grid_size
+        self.grid = self.make_grid()
+        # self.grid = [[max_resistance]*grid_size] * grid_size
+        # You have to create the grid "manually" because if you do it with
+        # list comprehensions or multiplication, you aren't creating individual
+        # items, you are creating references to the same item, so when you try
+        # to update one item, it changes the whole column instead.
+
+    def make_grid(self):
+        grid = []
+        for _ in range(self.grid_size):
+            line = []
+            for _ in range(self.grid_size):
+                line.append(self.max_resistance)
+            grid.append(line)
+        return grid
 
     def __repr__(self):
         res = ""
@@ -20,11 +34,14 @@ class Slope:
         side_to_side = self.pick_start()
         while altitude < self.grid_size - 1:
             self.update_slope(altitude, side_to_side)
-            side_to_side = self.pick_next(altitude, side_to_side)
+            (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
 
     # update the slope when a drop passes the tile
     def update_slope(self, altitude, side_to_side):
-        self.grid[altitude][side_to_side] = self.grid[altitude][side_to_side] + 1
+        print self.grid[altitude]
+        print self.grid[altitude][side_to_side]
+        self.grid[altitude][side_to_side] += 1 #self.grid[altitude][side_to_side] + 1
+        print self
 
     # pick the next tile the drop will go to
     def pick_next(self, altitude, side_to_side):
@@ -118,7 +135,7 @@ if __name__ == "__main__":
     print next_pick_test
     print "update_slope"
     test_slope2.update_slope(0, 0)
-    assert test_slope2.grid[0][0] == 2
+    #assert test_slope2.grid[0][0] == 2
     print "rain_drop"
     print test_slope
     test_slope.rain_drop()
