@@ -15,11 +15,17 @@ class Slope:
 
     def make_grid(self):
         grid = []
-        for _ in range(self.grid_size + 1):
+        for _ in range(self.grid_size):
             line = []
             for _ in range(self.grid_size):
                 line.append(self.max_resistance)
             grid.append(line)
+        # "hidden" altitude - terminate here
+        hidden_alt = []
+        for _ in range(self.grid_size):
+            hidden_alt.append(self.max_resistance)
+        grid.append(hidden_alt)
+
         return grid
 
     def __repr__(self):
@@ -35,10 +41,15 @@ class Slope:
         while altitude < self.grid_size:
             self.update_slope(altitude, side_to_side)
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
+        # update the "hidden" altitude
+        self.update_slope(altitude, side_to_side)
 
     # update the slope when a drop passes the tile
     def update_slope(self, altitude, side_to_side):
-        self.grid[altitude][side_to_side] += 1 #self.grid[altitude][side_to_side] + 1
+        try:
+            self.grid[altitude][side_to_side] += 1
+        except IndexError:
+            print altitude, side_to_side
 
     # pick the next tile the drop will go to
     def pick_next(self, altitude, side_to_side):
@@ -65,32 +76,37 @@ class Slope:
         south = (altitude + 1, side_to_side)
         south_east = (altitude + 1, side_to_side + 1)
         east = (altitude, side_to_side + 1)
+
         neighbor_coords = [neighbor for neighbor in \
-                [west, south_west, south, south_east, south, east] \
+                [west, south_west, south, south_east, east] \
                 if self.in_range(neighbor[0], neighbor[1])]
+
         neighbors = {}
         for thing in neighbor_coords:
             neighbors[thing] = self.grid[thing[0]][thing[1]]
+
         return neighbors
 
 
-    def in_range(self, x, y):
+    def in_range(self, altitude, side_to_side):
         #return x >= 0 and y >= 0 and x < self.grid_size and y < self.grid_size
-        return x >= 0 and y >= 0 and y < self.grid_size
+        return altitude >= 0 and side_to_side >= 0 and side_to_side < self.grid_size
 
     def pick_start(self):
-        return random.randint(0, self.grid_size)
+        # in Python, randint includes endpoints
+        return random.randint(0, self.grid_size-1)
 
 if __name__ == "__main__":
     print "slope creation"
     test_slope = Slope(5, 10)
     assert test_slope.grid_size == 5
     assert test_slope.max_resistance == 10
-    #assert test_slope.grid == [[10,10,10,10,10], \
-    #                           [10,10,10,10,10], \
-    #                           [10,10,10,10,10], \
-    #                           [10,10,10,10,10], \
-     #                          [10,10,10,10,10]]
+    assert test_slope.grid == [[10,10,10,10,10], \
+                               [10,10,10,10,10], \
+                               [10,10,10,10,10], \
+                               [10,10,10,10,10], \
+                               [10,10,10,10,10], \
+                               [10,10,10,10,10]]
     print "in_range"
     assert test_slope.in_range(0, 0) == True
     assert test_slope.in_range(4, 0) == True
@@ -99,6 +115,8 @@ if __name__ == "__main__":
     assert test_slope.in_range(2, 2) == True
     assert test_slope.in_range(-1, 0) == False
     assert test_slope.in_range(0, -1) == False
+    assert test_slope.in_range(5, 1) == True
+    assert test_slope.in_range(5, 5) == False
     print "get_neighbors"
     assert len(test_slope.get_neighbors(0, 0)) == 3
     assert test_slope.get_neighbors(0, 0).values() == [10, 10, 10]
@@ -133,10 +151,19 @@ if __name__ == "__main__":
     print next_pick_test
     print "update_slope"
     test_slope2.update_slope(0, 0)
-    #assert test_slope2.grid[0][0] == 2
+    assert test_slope2.grid[0][0] == 2
     print "rain_drop"
     print test_slope
-    test_slope.rain_drop()
+    # hardiness check
+    for _ in range(100):
+        test_slope.rain_drop()
     print test_slope
+
+    big_slope = Slope(10,1)
+    print big_slope
+    for _ in range(100):
+        big_slope.rain_drop()
+    print big_slope
+
     print "---------------------"
     print "tests passed"
