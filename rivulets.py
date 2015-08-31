@@ -2,7 +2,7 @@ import pygame
 import time
 
 screen_size = 500
-resolution = 10
+resolution = 15
 tile_size = screen_size / resolution
 screen = pygame.display.set_mode((screen_size, screen_size))
 
