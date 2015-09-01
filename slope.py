@@ -12,6 +12,11 @@ class Slope:
         # list comprehensions or multiplication, you aren't creating individual
         # items, you are creating references to the same item, so when you try
         # to update one item, it changes the whole column instead.
+        self.display = generate_display()
+
+    def generate_display(self):
+        # return type Display
+        pass
 
     def make_grid(self):
         grid = []

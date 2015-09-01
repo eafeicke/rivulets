@@ -5,6 +5,7 @@ screen_size = 500
 resolution = 15
 tile_size = screen_size / resolution
 screen = pygame.display.set_mode((screen_size, screen_size))
+begin_color = (180,130,70)
 
 for x in range(0, resolution):
     for y in range(0, resolution):
