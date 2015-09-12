@@ -39,9 +39,10 @@ for i in range(10):
 #
 # pygame.display.flip()
 
-running = True
-
-while running:
-    for event in pygame.event.get():
-        if event == pygame.QUIT:
-            running = False
+# This keeps the window open after the code is done executing
+# running = True
+#
+# while running:
+#     for event in pygame.event.get():
+#         if event == pygame.QUIT:
+#             running = False
