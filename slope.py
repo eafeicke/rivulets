@@ -1,6 +1,7 @@
 # slope class
 # slope represented by grid of numbers
 import random
+from board import Board
 
 class Slope:
     def __init__(self, grid_size, max_resistance):
@@ -12,11 +13,11 @@ class Slope:
         # list comprehensions or multiplication, you aren't creating individual
         # items, you are creating references to the same item, so when you try
         # to update one item, it changes the whole column instead.
-        self.display = generate_display()
+        self.board = self.generate_board()
 
-    def generate_display(self):
-        # return type Display
-        pass
+    def generate_board(self):
+        # return type Board
+        return Board(self.grid)
 
     def make_grid(self):
         grid = []
@@ -48,6 +49,7 @@ class Slope:
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
         # update the "hidden" altitude
         self.update_slope(altitude, side_to_side)
+        self.board.update_tile(altitude, side_to_side)
 
     # update the slope when a drop passes the tile
     def update_slope(self, altitude, side_to_side):

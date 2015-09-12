@@ -1,34 +1,18 @@
 import pygame
 import time
 
-class Display():
+class Board():
     def __init__(self, grid):
         self.grid = grid
         self.screen_size = 500
-        self.resolution = len(self.grid)
+        self.resolution = len(self.grid[0])
         self.tile_size = self.screen_size / self.resolution
         self.begin_color = (180,130,70)
         self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
-
-        # initialize the screen
-        for x in range(0, self.resolution):
-            for y in range(0, self.resolution):
-                pix_x = (self.screen_size / self.resolution) * x
-                pix_y = (self.screen_size / self.resolution) * y
-                pygame.draw.rect(self.screen, (self.begin_color), \
-                                 pygame.Rect(pix_x, pix_y, self.tile_size, self.tile_size))
-
-        pygame.display.flip()
-
-#         running = True
-#
-#         while running:
-#             for event in pygame.event.get():
-#                 if event == pygame.QUIT:
-#                     running = False
+        self.update_entire_board()
 
     # update the screen based on the grid
-    def update_entire_display(self):
+    def update_entire_board(self):
         for row in range(self.resolution):
             for col in range(self.resolution):
                 self.update_tile(row, col)
@@ -37,9 +21,19 @@ class Display():
     # (faster than updating entire board)
     def update_tile(self, row, col):
         tile_val = self.grid[row][col]
-        new_color = (self.begin_color[0] - tile_val, \
-                     self.begin_color[1] - tile_val, \
-                     self.begin_color[2] - tile_val)
+
+        r = self.begin_color[0] - tile_val
+        if r < 0:
+            r = 0
+        g = self.begin_color[1] - tile_val
+        if g < 0:
+            g = 0
+        b = self.begin_color[2] - tile_val
+        if b < 0:
+            b = 0
+
+        new_color = (r, g, b)
+
         new_rect = pygame.Rect(row * self.tile_size, col * self.tile_size, \
                                self.tile_size, self.tile_size)
         pygame.draw.rect(self.screen, new_color, new_rect)
@@ -54,18 +48,17 @@ if __name__ == "__main__":
                  [1, 1, 1, 1]
                 ]
 
-    test_display = Display(test_grid)
+    test_board = Board(test_grid)
 
-    print "here"
     time.sleep(3)
 
-    test_display.grid = [
+    test_board.grid = [
                         [1, 50, 1, 50],
                         [50, 1, 50, 1],
                         [1, 50, 1, 50],
                         [50, 1, 50, 1]
                         ]
-    test_display.update_entire_display()
+    test_board.update_entire_board()
 
     running = True
 

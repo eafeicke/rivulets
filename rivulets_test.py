@@ -37,7 +37,7 @@ for i in range(10):
 #         pygame.draw.rect(screen, (r,g,b), \
 #                          pygame.Rect(pix_x, pix_y,tile_size, tile_size))
 #
-# pygame.display.flip()
+# pygame.board.flip()
 
 # This keeps the window open after the code is done executing
 # running = True
