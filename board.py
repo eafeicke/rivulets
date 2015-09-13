@@ -4,7 +4,7 @@ import time
 class Board():
     def __init__(self, grid):
         self.grid = grid
-        self.screen_size = 500
+        self.screen_size = 100
         self.resolution = len(self.grid[0])
         self.tile_size = self.screen_size / self.resolution
         self.begin_color = (180,130,70)
@@ -32,12 +32,14 @@ class Board():
         if b < 0:
             b = 0
 
+        pygame.display.update(pygame.Rect(25, 25, 25, 25))
+
         new_color = (r, g, b)
 
         new_rect = pygame.Rect(row * self.tile_size, col * self.tile_size, \
                                self.tile_size, self.tile_size)
         pygame.draw.rect(self.screen, new_color, new_rect)
-        pygame.display.update(new_rect)
+        pygame.display.update([new_rect])
 
 
 if __name__ == "__main__":

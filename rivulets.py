@@ -24,6 +24,19 @@ from slope import Slope
 #     time.sleep(0.5)
 slope = Slope(5, 50)
 
+slope.grid = [[5, 10, 15, 20, 25], \
+              [30, 25, 40, 45, 50], \
+              [55, 60, 65, 70 ,75], \
+              [80, 85, 90, 95, 100], \
+              [105, 110, 115, 120, 125],\
+              [50, 50, 50, 50, 50]]
+
+time.sleep(2)
+
+slope.board.update_entire_board()
+
+time.sleep(2)
+
 drops = 100
 for drop in range(drops):
     # do the thing
