@@ -1,10 +1,15 @@
 # slope class
 # slope represented by grid of numbers
 import random
-from board import Board
+import pygame
 
 class Slope:
-    def __init__(self, grid_size, max_resistance):
+    def __init__(self, \
+                 grid_size=5, \
+                 max_resistance=50, \
+                 screen_size=100, \
+                 begin_color=(180,130,70)):
+
         self.grid_size = grid_size
         self.max_resistance= max_resistance
         self.grid = self.make_grid()
@@ -13,11 +18,16 @@ class Slope:
         # list comprehensions or multiplication, you aren't creating individual
         # items, you are creating references to the same item, so when you try
         # to update one item, it changes the whole column instead.
-        self.board = self.generate_board()
 
-    def generate_board(self):
-        # return type Board
-        return Board(self.grid)
+        # board stuff
+        self.screen_size = screen_size
+        self.begin_color = begin_color
+
+        self.resolution = len(self.grid[0])
+        self.tile_size = self.screen_size / self.resolution
+        self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
+
+        self.update_entire_board()
 
     def make_grid(self):
         grid = []
@@ -46,11 +56,11 @@ class Slope:
         side_to_side = self.pick_start()
         while altitude < self.grid_size:
             self.update_slope(altitude, side_to_side)
-            self.board.update_tile(altitude, side_to_side)
+            self.update_tile(altitude, side_to_side)
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
         # update the "hidden" altitude
         self.update_slope(altitude, side_to_side)
-        self.board.update_tile(altitude, side_to_side)
+        self.update_tile(altitude, side_to_side)
 
     # update the slope when a drop passes the tile
     def update_slope(self, altitude, side_to_side):
@@ -103,4 +113,36 @@ class Slope:
     def pick_start(self):
         # in Python, randint includes endpoints
         return random.randint(0, self.grid_size-1)
+
+    ###############
+    # Board stuff #
+    ###############
+    # update the screen based on the grid
+    def update_entire_board(self):
+        for row in range(self.resolution):
+            for col in range(self.resolution):
+                self.update_tile(row, col)
+
+    # make update on one tile
+    def update_tile(self, row, col):
+        tile_val = self.grid[row][col]
+
+        r = self.begin_color[0] - tile_val
+        if r < 0:
+            r = 0
+        g = self.begin_color[1] - tile_val
+        if g < 0:
+            g = 0
+        b = self.begin_color[2] - tile_val
+        if b < 0:
+            b = 0
+
+        pygame.display.update(pygame.Rect(25, 25, 25, 25))
+
+        new_color = (r, g, b)
+
+        new_rect = pygame.Rect(row * self.tile_size, col * self.tile_size, \
+                               self.tile_size, self.tile_size)
+        pygame.draw.rect(self.screen, new_color, new_rect)
+        pygame.display.update([new_rect])
 

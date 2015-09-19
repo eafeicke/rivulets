@@ -69,5 +69,13 @@ if __name__ == "__main__":
         big_slope.rain_drop()
     print big_slope
 
+    test_slope.grid = [[1, 50, 1, 50, 1], \
+                       [50, 1, 50, 1, 50], \
+                       [1, 50, 1, 50, 1], \
+                       [50, 1, 50, 1, 50], \
+                       [1, 50, 1, 50, 1], \
+                       [1, 1, 1, 1, 1]]
+    test_slope.update_entire_board()
+
     print "---------------------"
     print "tests passed"
