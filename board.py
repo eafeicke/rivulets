@@ -18,7 +18,6 @@ class Board():
                 self.update_tile(row, col)
 
     # make update on one tile
-    # (faster than updating entire board)
     def update_tile(self, row, col):
         tile_val = self.grid[row][col]
 
@@ -42,29 +41,29 @@ class Board():
         pygame.display.update([new_rect])
 
 
-if __name__ == "__main__":
-    test_grid = [
-                 [1, 1, 1, 1],
-                 [1, 1, 1, 1],
-                 [1, 1, 1, 1],
-                 [1, 1, 1, 1]
-                ]
-
-    test_board = Board(test_grid)
-
-    time.sleep(3)
-
-    test_board.grid = [
-                        [1, 50, 1, 50],
-                        [50, 1, 50, 1],
-                        [1, 50, 1, 50],
-                        [50, 1, 50, 1]
-                        ]
-    test_board.update_entire_board()
-
-    running = True
-
-    while running:
-        for event in pygame.event.get():
-            if event == pygame.QUIT:
-                running = False
+# if __name__ == "__main__":
+#     test_grid = [
+#                  [1, 1, 1, 1],
+#                  [1, 1, 1, 1],
+#                  [1, 1, 1, 1],
+#                  [1, 1, 1, 1]
+#                 ]
+#
+#     test_board = Board(test_grid)
+#
+#     time.sleep(3)
+#
+#     test_board.grid = [
+#                         [1, 50, 1, 50],
+#                         [50, 1, 50, 1],
+#                         [1, 50, 1, 50],
+#                         [50, 1, 50, 1]
+#                         ]
+#     test_board.update_entire_board()
+#
+#     running = True
+#
+#     while running:
+#         for event in pygame.event.get():
+#             if event == pygame.QUIT:
+#                 running = False

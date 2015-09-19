@@ -46,6 +46,7 @@ class Slope:
         side_to_side = self.pick_start()
         while altitude < self.grid_size:
             self.update_slope(altitude, side_to_side)
+            self.board.update_tile(altitude, side_to_side)
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
         # update the "hidden" altitude
         self.update_slope(altitude, side_to_side)
