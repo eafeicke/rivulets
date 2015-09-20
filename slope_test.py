@@ -59,13 +59,15 @@ if __name__ == "__main__":
     print "rain_drop"
     print test_slope
     # hardiness check
-    for _ in range(100):
+    for _ in range(5):
+        print _
         test_slope.rain_drop()
     print test_slope
 
     big_slope = Slope(10,1)
     print big_slope
-    for _ in range(100):
+    for _ in range(5):
+        print _
         big_slope.rain_drop()
     print big_slope
 
