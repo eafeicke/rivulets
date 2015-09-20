@@ -10,12 +10,12 @@ class Slope:
                  max_resistance=50, \
                  rain_delta=1, \
                  screen_size=100, \
-                 begin_color=(180,130,70), \
                  mod_west=0, \
                  mod_southwest=0, \
                  mod_south=0, \
                  mod_southeast=0, \
-                 mod_east=0):
+                 mod_east=0, \
+                 begin_color=(180,130,70)):
 
         self.grid_size = grid_size
         self.max_resistance= max_resistance

@@ -11,8 +11,7 @@ mod_south = 4
 mod_southeast = 2
 mod_east = 0
 
-slope = Slope(grid_size, max_resistance, rain_delta, 15, screen_size, \
-              mod_west, mod_southwest, mod_south, mod_southeast, mod_east)
+slope = Slope(grid_size, max_resistance, rain_delta, screen_size, mod_west, mod_southwest, mod_south, mod_southeast, mod_east)
 
 drops = 100
 for drop in range(drops):
