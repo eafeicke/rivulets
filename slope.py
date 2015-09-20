@@ -74,7 +74,8 @@ class Slope:
             self.update_slope(altitude, side_to_side)
             self.update_tile(altitude, side_to_side)
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
-            time.sleep(0.08)
+            pygame.event.pump()
+            time.sleep(0.05)
         # update the "hidden" altitude
         self.update_slope(altitude, side_to_side)
         self.update_tile(altitude, side_to_side)
@@ -106,16 +107,6 @@ class Slope:
 
     # get all of the potential next tiles
     def get_neighbors(self, altitude, side_to_side):
-#         west = (altitude, side_to_side - 1) + self.mod_west
-#         south_west = (altitude + 1, side_to_side - 1) + self.mod_southwest
-#         south = (altitude + 1, side_to_side) + self.mod_south
-#         south_east = (altitude + 1, side_to_side + 1) + self.mod_southeast
-#         east = (altitude, side_to_side + 1) + self.mod_east
-#
-#         neighbor_coords = [neighbor for neighbor in \
-#                 [west, south_west, south, south_east, east] \
-#                 if self.in_range(neighbor[0], neighbor[1])]
-
         neighbors = {}
         # west
         w_alt = altitude
@@ -151,9 +142,6 @@ class Slope:
         if self.in_range(e_alt, e_sts):
             neighbors[(e_alt, e_sts)] = \
             self.grid[e_alt][e_sts] + self.mod_east
-
-#         for thing in neighbor_coords:
-#             neighbors[thing] = self.grid[thing[0]][thing[1]]
 
         return neighbors
 
