@@ -67,15 +67,18 @@ class Slope:
             res += "\n"
         return res
 
-    def rain_drop(self):
+    def rain_drop(self, delay_eqn, offset):
         altitude = 0
         side_to_side = self.pick_start()
+        drop = 1
         while altitude < self.grid_size:
             self.update_slope(altitude, side_to_side)
             self.update_tile(altitude, side_to_side)
             (altitude, side_to_side) = self.pick_next(altitude, side_to_side)
             pygame.event.pump()
-            time.sleep(0.05)
+            delay_time = delay_eqn(drop, offset)
+            time.sleep(delay_time)
+            drop += 1
         # update the "hidden" altitude
         self.update_slope(altitude, side_to_side)
         self.update_tile(altitude, side_to_side)
