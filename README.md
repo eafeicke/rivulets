@@ -1,9 +1,4 @@
-# rivulets
-
-This project is intended to simulate how droplets of water might wear down
-tracks into a dirt slope.
-
-Pygame could be useful for this.
+# notes to self
 
 Represent the slope as a grid with the top of the slope as the top of the
 screen.
@@ -16,8 +11,8 @@ x x x
 o d o
 o o o
 
-The grid will be represented by numbers where a tile's number represents how
+represent grid by numbers where a tile's number represents how
 likely the drop would be to choose that tile next. The higher the number, the
 more likely the drop would choose that tile next.
 
-Idea: weight southwest, south, and southeast higher than west and east
+weight southwest, south, and southeast higher than west and east
