@@ -16,3 +16,5 @@ likely the drop would be to choose that tile next. The higher the number, the
 more likely the drop would choose that tile next.
 
 weight southwest, south, and southeast higher than west and east
+
+Live JavaScript demo [here](http://eafeicke.github.io/rivulets.html)
